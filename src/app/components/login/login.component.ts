@@ -1,24 +1,22 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
-import {EquipmentsService} from '../../features/equipments/equipments.service';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-    constructor(public authService: AuthService,
-                private eqService: EquipmentsService) {
-        // this.eqService.getEquipments().subscribe(results => console.log(results));
+    constructor(public authService: AuthService) {
     }
 
-    ngOnInit() {
+    isAuthenticated() {
+        return this.authService.isAuthenticated();
     }
 
-    // ngAfterViewInit(): void {
-    //     console.log(!!this.authService.getAccessToken() ? this.authService.getAccessToken() : 'nie ma');
-    // }
+    login() {
+        return this.authService.login();
+    }
 
 }
