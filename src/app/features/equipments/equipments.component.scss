@@ -1,7 +1,15 @@
 :host {
 
-  .extra-margin {
-    margin: 15px;
+  .under-table-section {
+    padding: 15px 0;
+
+    .title {
+      margin: 30px 15px;
+    }
+
+    .extra-margin {
+      margin: 15px;
+    }
   }
 
   table {

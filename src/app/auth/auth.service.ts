@@ -55,8 +55,7 @@ export class AuthService {
                     console.log('jakis inny błąd');
                     return reject(error);
                 } else if (error) {
-                    console.log(error, 'Redirect to equipments page');
-                    // redirect to login page ;
+                    // console.log(error, 'Redirect to equipments page');
                     this.router.navigate(['equipments']);
                     this.handleAuthentication();
                     return resolve(false);
@@ -67,15 +66,11 @@ export class AuthService {
                     this._authResult = authResult;
                     return resolve(true);
                 }
-                // }
             });
         });
     }
 
     public isLoggedOn(): boolean {
-        // Check whether the current time is past the
-        // Access Token's expiry time
-        // return this._accessToken != null;
         return !this.isTokenExpired();
     }
 
@@ -102,10 +97,8 @@ export class AuthService {
     }
 
     public isAdmin(): boolean {
-        if (this._accessToken) {
-            const helper = new JwtHelperService();
-            const decodedToken = helper.decodeToken(this._accessToken);
-            if (decodedToken['http://localhost:3000/roles'].indexOf('admin') > -1) {
+        if (this.isLoggedOn()) {
+            if (this.decodeToken()['http://localhost:3000/roles'].indexOf('admin') > -1) {
                 return true;
             } else {
                 return false;
