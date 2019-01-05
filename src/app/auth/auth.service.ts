@@ -26,7 +26,7 @@ export class AuthService {
             domain: 'dominikp.eu.auth0.com',
             responseType: 'token id_token',
             audience: 'http://localhost:3000',
-            redirectUri: 'http://localhost:4200/login',
+            redirectUri: 'http://localhost:4200/equipments',
             scope: 'openid profile'
         };
         this._auth0Client = new WebAuth({...this._properties});
@@ -55,10 +55,9 @@ export class AuthService {
                     console.log('jakis inny błąd');
                     return reject(error);
                 } else if (error) {
-                    // explicit authentication
-                    console.log(error, 'Redirect to login page');
+                    console.log(error, 'Redirect to equipments page');
                     // redirect to login page ;
-                    this.router.navigate(['login']);
+                    this.router.navigate(['equipments']);
                     this.handleAuthentication();
                     return resolve(false);
                 }
@@ -129,6 +128,6 @@ export class AuthService {
         delete this._accessToken;
         delete this._idToken;
         localStorage.clear();
-        this.router.navigate(['login']);
+        this.router.navigate(['equipments']);
     }
 }

@@ -15,7 +15,6 @@ export class EquipmentsService {
     constructor(private http: HttpClient, private auth: AuthService) {
     }
 
-    // creates header
     private _authHeader(): Object {
         return {
             headers: new HttpHeaders({'authorization': `Bearer ${this.auth.getAccessToken()}`})
@@ -23,7 +22,6 @@ export class EquipmentsService {
     }
 
     public getEquipments(): Observable<Equipment[]> {
-        // console.log(this.auth.getAccessToken());
         return this.http.get<Equipment[]>(`${this.API_URL}/equipments`);
     }
 

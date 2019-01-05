@@ -33,6 +33,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         MatIconModule,
         MatListModule,
         BrowserAnimationsModule
+
     ],
     providers: [],
     bootstrap: [AppComponent]
