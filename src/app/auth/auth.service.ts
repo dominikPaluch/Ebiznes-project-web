@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AuthOptions, WebAuth} from 'auth0-js';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {Router} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +12,15 @@ export class AuthService {
     private _accessToken: string;
     private _idToken: string;
     private _properties: AuthOptions;
+    private _authResult: Object;
 
-    constructor() {
+    private helper = new JwtHelperService();
+
+    constructor(private router: Router) {
+        this.setProperties();
+    }
+
+    private setProperties() {
         this._properties = {
             clientID: 'IzmXDhprSpclNJaHxMnRAJazovW24w6g',
             domain: 'dominikp.eu.auth0.com',
@@ -22,32 +30,45 @@ export class AuthService {
             scope: 'openid profile'
         };
         this._auth0Client = new WebAuth({...this._properties});
-
     }
 
     public login(): void {
-        // triggers auth0 authentication page
         this._auth0Client.authorize();
+    }
+
+    public isTokenExpired(): boolean {
+        return this.helper.isTokenExpired(localStorage.getItem('accessToken'));
+    }
+
+    public decodeToken() {
+        return this.helper.decodeToken(localStorage.getItem('accessToken'));
+    }
+
+    public getTokenExpirationDate() {
+        return this.helper.getTokenExpirationDate(localStorage.getItem('accessToken'));
     }
 
     public checkSession(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
-            console.log('check session');
-            // checks in Auth0's server if the browser has a session
             this._auth0Client.checkSession(this._properties, async (error, authResult) => {
                 if (error && error.error !== 'login_required') {
-                    // some other error
+                    console.log('jakis inny błąd');
                     return reject(error);
                 } else if (error) {
                     // explicit authentication
-                    console.log(error);
+                    console.log(error, 'Redirect to login page');
+                    // redirect to login page ;
+                    this.router.navigate(['login']);
                     this.handleAuthentication();
                     return resolve(false);
                 }
                 if (!this.isAuthenticated()) {
+                    console.log('a teraz tu ');
                     this._setSession(authResult);
+                    this._authResult = authResult;
                     return resolve(true);
                 }
+                // }
             });
         });
     }
@@ -55,16 +76,16 @@ export class AuthService {
     public isAuthenticated(): boolean {
         // Check whether the current time is past the
         // Access Token's expiry time
-        return this._accessToken != null;
+        // return this._accessToken != null;
+        return !this.isTokenExpired();
     }
 
     private handleAuthentication(): void {
         this._auth0Client.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
-                console.log(authResult);
+                console.log('in handleAuthentication', authResult.idTokenPayload.name);
                 this._setSession(authResult);
-                console.log(authResult);
             } else if (err) {
                 console.log(err);
             }
@@ -72,12 +93,15 @@ export class AuthService {
     }
 
     private _setSession(authResult): void {
-        console.log('token: ', authResult);
-        this._accessToken = authResult.accessToken;
-        this._idToken = authResult.idToken;
+        if (!!authResult) {
+            this._accessToken = authResult.accessToken;
+            this._idToken = authResult.idToken;
+            localStorage.setItem('accessToken', authResult.accessToken);
+            localStorage.setItem('userName', authResult.idTokenPayload.name);
+            this.router.navigate(['equipments']);
+        }
     }
 
-    // check if there is a property Admin in access token
     public isAdmin(): boolean {
         if (this._accessToken) {
             const helper = new JwtHelperService();
@@ -93,19 +117,18 @@ export class AuthService {
     }
 
     public getProfile(): Object {
-        if (this._idToken) {
-            const helper = new JwtHelperService();
-            return helper.decodeToken(this._idToken);
-        }
+        return this._authResult;
     }
 
     public getAccessToken(): String {
-        return this._accessToken;
+        // return this._accessToken;
+        return localStorage.getItem('accessToken');
     }
 
     public logout(): void {
-        // Remove tokens
         delete this._accessToken;
         delete this._idToken;
+        localStorage.clear();
+        this.router.navigate(['login']);
     }
 }

@@ -31,4 +31,25 @@ export class HeaderComponent implements OnInit {
         return this.authService.getProfile();
     }
 
+    check() {
+        console.log(this.authService.isTokenExpired());
+    }
+
+    decodeToken() {
+        console.log(this.authService.decodeToken());
+    }
+
+    getToken2() {
+        console.log(this.authService.getAccessToken());
+    }
+
+    getTokenExpirationDate() {
+        console.log(this.authService.getTokenExpirationDate());
+    }
+
+    getNickname(): string {
+        return localStorage.getItem('userName');
+    }
+
+
 }

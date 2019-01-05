@@ -22,7 +22,7 @@ import {LoginComponent} from './components/login/login.component';
         ReactiveFormsModule,
         HttpClientModule,
         UsersModule,
-        EquipmentsModule
+        EquipmentsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
