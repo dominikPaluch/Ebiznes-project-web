@@ -62,7 +62,7 @@ export class AuthService {
                     this.handleAuthentication();
                     return resolve(false);
                 }
-                if (!this.isAuthenticated()) {
+                if (!this.isLoggedOn()) {
                     console.log('a teraz tu ');
                     this._setSession(authResult);
                     this._authResult = authResult;
@@ -73,7 +73,7 @@ export class AuthService {
         });
     }
 
-    public isAuthenticated(): boolean {
+    public isLoggedOn(): boolean {
         // Check whether the current time is past the
         // Access Token's expiry time
         // return this._accessToken != null;

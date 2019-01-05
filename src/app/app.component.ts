@@ -20,4 +20,20 @@ export class AppComponent {
                 private breakpointObserver: BreakpointObserver) {
         this.authService.checkSession();
     }
+
+    getUsername(): string {
+        return localStorage.getItem('userName');
+    }
+
+    logout() {
+        this.authService.logout();
+    }
+
+    isLoggedOn(): boolean {
+        return this.authService.isLoggedOn();
+    }
+
+    login() {
+        this.authService.login();
+    }
 }

@@ -21,7 +21,15 @@
                     *ngIf="isHandset$ | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span>Ebiznes-project-web</span>
+            <span>Rybakówka</span>
+            <div class="user-info-section">
+                <span *ngIf="isLoggedOn()">Witaj,</span>
+                <div class="username">
+                    {{getUsername()}}
+                </div>
+                <button *ngIf="isLoggedOn()" (click)="logout()" mat-flat-button>Wyloguj</button>
+                <button *ngIf="!isLoggedOn()" (click)="login()" mat-flat-button>Zaloguj</button>
+            </div>
         </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
