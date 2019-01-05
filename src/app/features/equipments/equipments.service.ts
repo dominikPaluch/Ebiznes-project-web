@@ -3,11 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthService} from '../../auth/auth.service';
 import {Observable} from 'rxjs';
 import {Equipment} from '../../models/equipment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EquipmentsService {
+
+    API_URL = environment.API_URL;
 
     constructor(private http: HttpClient, private auth: AuthService) {
     }
@@ -20,8 +23,8 @@ export class EquipmentsService {
     }
 
     public getEquipments(): Observable<Equipment[]> {
-        console.log(this.auth.getAccessToken());
-        return this.http.get<Equipment[]>('/api/equipments');
+        // console.log(this.auth.getAccessToken());
+        return this.http.get<Equipment[]>(`${this.API_URL}/equipments`);
     }
 
     public postEquipment(equipment: Equipment): Observable<Equipment> {
