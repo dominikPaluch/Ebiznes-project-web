@@ -1,6 +1,7 @@
 <div class="under-table-section">
     <span class="title">Dostępny sprzęt</span>
-    <button mat-stroked-button color="primary" (click)="openDialogToAddNewEquipment()" *ngIf="isAdmin()" class="add-equipment">
+    <button mat-stroked-button color="primary" (click)="openDialogToAddNewEquipment()" *ngIf="isAdmin()"
+            class="add-equipment">
         Dodaj nowy sprzęt
     </button>
 </div>
@@ -26,8 +27,8 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <div class="actions-containers">
-                    <span class="edit" (click)="openDialogToEditEquipment(element)">Edytuj</span>
-                    <span class="remove" (click)="removeEquipment(element._id)">Usuń</span>
+                    <span class="edit" *ngIf="isAdmin()" (click)="openDialogToEditEquipment(element)">Edytuj</span>
+                    <span class="remove" *ngIf="isAdmin()" (click)="removeEquipment(element._id)">Usuń</span>
                 </div>
             </td>
         </ng-container>

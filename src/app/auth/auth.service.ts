@@ -78,7 +78,6 @@ export class AuthService {
         this._auth0Client.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
-                console.log('in handleAuthentication', authResult.idTokenPayload.name);
                 this._setSession(authResult);
             } else if (err) {
                 console.log(err);
@@ -108,12 +107,7 @@ export class AuthService {
         }
     }
 
-    public getProfile(): Object {
-        return this._authResult;
-    }
-
     public getAccessToken(): String {
-        // return this._accessToken;
         return localStorage.getItem('accessToken');
     }
 
@@ -121,6 +115,10 @@ export class AuthService {
         delete this._accessToken;
         delete this._idToken;
         localStorage.clear();
-        this.router.navigate(['equipments']);
+
+        this._auth0Client.logout({
+            returnTo: 'http://localhost:4200/equipments',
+            clientID: this._properties.clientID
+        });
     }
 }
