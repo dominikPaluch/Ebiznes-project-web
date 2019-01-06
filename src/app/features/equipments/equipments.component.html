@@ -1,3 +1,10 @@
+<button mat-stroked-button color="accent" (click)="openDialogToSetDate()">
+    Wybierz datę
+</button>
+<span *ngIf="!!selectedDate">
+    Wybrana data: <span class="date">{{selectedDate | date: 'dd/MM/yyyy hh:mm' }}</span>
+</span>
+
 <div class="under-table-section">
     <span class="title">Dostępny sprzęt</span>
     <button mat-stroked-button color="primary" (click)="openDialogToAddNewEquipment()" *ngIf="isAdmin()"

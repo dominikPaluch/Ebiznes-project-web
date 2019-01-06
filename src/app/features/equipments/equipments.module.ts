@@ -6,12 +6,14 @@ import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, Ma
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CreateEquipmentModalComponent} from './components/create-equipment-modal/create-equipment-modal.component';
 import {UpdateEquipmentModalComponent} from './components/update-equipment-modal/update-equipment-modal.component';
+import {SetDateModalComponent} from './components/set-date-modal/set-date-modal.component';
 
 @NgModule({
     declarations: [
         EquipmentsComponent,
         CreateEquipmentModalComponent,
-        UpdateEquipmentModalComponent
+        UpdateEquipmentModalComponent,
+        SetDateModalComponent
     ],
     imports: [
         CommonModule,
@@ -29,7 +31,8 @@ import {UpdateEquipmentModalComponent} from './components/update-equipment-modal
     providers: [EquipmentsService],
     entryComponents: [
         CreateEquipmentModalComponent,
-        UpdateEquipmentModalComponent
+        UpdateEquipmentModalComponent,
+        SetDateModalComponent
     ]
 })
 export class EquipmentsModule {

@@ -5,6 +5,7 @@ import {Equipment} from '../../models/equipment';
 import {AuthService} from '../../auth/auth.service';
 import {CreateEquipmentModalComponent} from './components/create-equipment-modal/create-equipment-modal.component';
 import {UpdateEquipmentModalComponent} from './components/update-equipment-modal/update-equipment-modal.component';
+import {SetDateModalComponent} from './components/set-date-modal/set-date-modal.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class EquipmentsComponent implements OnInit {
     displayedColumns: string[] = ['name', 'price', 'status', 'action'];
     dataSource;
     cartWithEquipmentIds: string[] = [];
+    selectedDate: Date;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -41,8 +43,23 @@ export class EquipmentsComponent implements OnInit {
         dialogRef.afterClosed().pipe(
         ).subscribe(result => {
             if (!!result) {
-                console.log(result.value);
                 this.createEquipment(result);
+            }
+        });
+    }
+
+    openDialogToSetDate(): void {
+        const dialogRef = this.dialog.open(SetDateModalComponent, {
+            width: '350px',
+            disableClose: true
+        });
+
+        dialogRef.afterClosed().pipe(
+        ).subscribe(date => {
+            if (!!date) {
+                this.selectedDate = date;
+                console.log(this.selectedDate);
+                // get equipments which is free in this date
             }
         });
     }
