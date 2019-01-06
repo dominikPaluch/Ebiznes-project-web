@@ -7,12 +7,6 @@ import {CreateEquipmentModalComponent} from './components/create-equipment-modal
 import {UpdateEquipmentModalComponent} from './components/update-equipment-modal/update-equipment-modal.component';
 
 
-export interface DialogData {
-    animal: string;
-    name: string;
-}
-
-
 @Component({
     selector: 'app-equipments',
     templateUrl: './equipments.component.html',
@@ -38,13 +32,13 @@ export class EquipmentsComponent implements OnInit {
     openDialogToAddNewEquipment(): void {
         const dialogRef = this.dialog.open(CreateEquipmentModalComponent, {
             width: '250px',
-            data: {},
             disableClose: true
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
+        dialogRef.afterClosed().pipe(
+        ).subscribe(result => {
             if (!!result) {
+                console.log(result.value);
                 this.createEquipment(result);
             }
         });
@@ -58,7 +52,6 @@ export class EquipmentsComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(updatedEquipment => {
-            console.log(updatedEquipment);
             if (!!updatedEquipment) {
                 this.updateEquipment(updatedEquipment);
             }
@@ -66,33 +59,34 @@ export class EquipmentsComponent implements OnInit {
     }
 
     private createEquipment(result) {
-        this.equipmentService.postEquipment({
+        this.equipmentService.createEquipment({
             name: result.value.name,
             price: result.value.price,
             status: 'ok'
-        });
+        }).subscribe(() => this.getEquipments());
     }
 
     private getEquipments() {
         this.equipmentService.getEquipments().subscribe(results => {
             this.equipments = results;
-            console.log(results);
             this.dataSource = new MatTableDataSource<Equipment>(this.equipments);
             this.dataSource.paginator = this.paginator;
         });
     }
 
     removeEquipment(id: string) {
-        console.log(id);
         this.equipmentService.deleteEquipment(id)
-            .subscribe((res) => {
-                console.log(res);
-                this.getEquipments();
-            });
+            .subscribe(() => this.getEquipments());
     }
 
-    updateEquipment(equipment: Equipment) {
-        this.equipmentService.updateEquipment(equipment);
+    updateEquipment(result) {
+        this.equipmentService.updateEquipment({
+            name: result.value.name,
+            price: result.value.price,
+            status: result.value.status,
+            _id: result.value._id
+        })
+            .subscribe(() => this.getEquipments());
     }
 
     isAdmin(): boolean {

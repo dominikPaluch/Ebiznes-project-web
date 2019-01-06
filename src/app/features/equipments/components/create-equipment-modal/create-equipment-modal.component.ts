@@ -1,13 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Component} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {EquipmentsService} from '../../equipments.service';
 
-
-export interface DialogData {
-    animal: string;
-    name: string;
-}
 
 @Component({
     selector: 'app-create-equipment-modal',
@@ -19,8 +13,7 @@ export class CreateEquipmentModalComponent {
     createEquipmentForm: FormGroup;
 
     constructor(public dialogRef: MatDialogRef<CreateEquipmentModalComponent>,
-                private fb: FormBuilder,
-                @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+                private fb: FormBuilder) {
         this.createForm();
     }
 
@@ -34,5 +27,4 @@ export class CreateEquipmentModalComponent {
             price: ['', [Validators.required]]
         });
     }
-
 }
