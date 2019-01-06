@@ -22,14 +22,12 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CreateEquipmentModalComponent} from './components/create-equipment-modal/create-equipment-modal.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
         LoginComponent,
-        CreateEquipmentModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -56,7 +54,6 @@ import {CreateEquipmentModalComponent} from './components/create-equipment-modal
         {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
     bootstrap: [AppComponent],
-    entryComponents: [CreateEquipmentModalComponent]
 })
 export class AppModule {
 }

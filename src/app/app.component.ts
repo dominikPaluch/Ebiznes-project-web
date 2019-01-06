@@ -22,7 +22,7 @@ export class AppComponent {
     }
 
     getUsername(): string {
-        return localStorage.getItem('userName');
+        return !this.authService.isTokenExpired() ? localStorage.getItem('userName') : '';
     }
 
     logout() {

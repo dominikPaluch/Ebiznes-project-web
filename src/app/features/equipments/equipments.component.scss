@@ -1,18 +1,46 @@
-:host {
 
-  .under-table-section {
-    padding: 15px 0;
+.under-table-section {
+  padding: 15px 0;
 
-    .title {
-      margin: 30px 15px;
-    }
-
-    .extra-margin {
-      margin: 15px;
-    }
+  .title {
+    margin: 30px 15px;
   }
 
-  table {
-    width: 100%;
+  .extra-margin {
+    margin: 15px;
   }
 }
+
+table {
+  width: 100%;
+}
+
+.actions-containers {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  .remove {
+    cursor: pointer;
+    transition: .3s ease;
+    color: #ff3f41;
+    padding: 10px 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .edit {
+    cursor: pointer;
+    transition: .3s ease;
+    color: #375b84;
+    padding: 10px 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+

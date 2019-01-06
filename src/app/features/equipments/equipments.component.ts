@@ -3,7 +3,7 @@ import {EquipmentsService} from './equipments.service';
 import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {Equipment} from '../../models/equipment';
 import {AuthService} from '../../auth/auth.service';
-import {CreateEquipmentModalComponent} from '../../components/create-equipment-modal/create-equipment-modal.component';
+import {CreateEquipmentModalComponent} from './components/create-equipment-modal/create-equipment-modal.component';
 
 
 export interface DialogData {
@@ -18,9 +18,6 @@ export interface DialogData {
     styleUrls: ['./equipments.component.scss']
 })
 export class EquipmentsComponent implements OnInit {
-
-    animal: string;
-    name: string;
 
     equipments: Equipment[];
     displayedColumns: string[] = ['name', 'price', 'status', 'action'];
@@ -40,22 +37,46 @@ export class EquipmentsComponent implements OnInit {
     openDialog(): void {
         const dialogRef = this.dialog.open(CreateEquipmentModalComponent, {
             width: '250px',
-            data: {name: this.name, animal: this.animal}
+            data: {},
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.animal = result;
+            console.log(result);
+            if (!!result) {
+                this.createEquipmenet(result);
+            }
         });
     }
 
+    private createEquipmenet(result) {
+        this.equipmentService.postEquipment({
+            name: result.value.name,
+            price: result.value.price,
+            status: 'ok'
+        });
+    }
 
     private getEquipments() {
         this.equipmentService.getEquipments().subscribe(results => {
             this.equipments = results;
+            console.log(results);
             this.dataSource = new MatTableDataSource<Equipment>(this.equipments);
             this.dataSource.paginator = this.paginator2;
         });
+    }
+
+    removeEquipment(id: string) {
+        console.log(id);
+        this.equipmentService.deleteEquipment(id)
+            .subscribe((res) => {
+                console.log(res);
+                this.getEquipments();
+            });
+    }
+
+    editEquipment(id: string) {
+
     }
 
     isAdmin(): boolean {
