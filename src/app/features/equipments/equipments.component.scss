@@ -1,9 +1,22 @@
+$primary-color: #375b84;
 
 .under-table-section {
   padding: 15px 0;
 
   .title {
     margin: 30px 15px;
+  }
+
+  .right {
+    float: right;
+  }
+
+  .cart {
+    color: $primary-color;
+
+    .number {
+      padding: 0 5px;
+    }
   }
 
   .extra-margin {
@@ -34,12 +47,28 @@ table {
   .edit {
     cursor: pointer;
     transition: .3s ease;
-    color: #375b84;
+    color: $primary-color;
     padding: 10px 15px;
 
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  .add-to-cart {
+    cursor: pointer;
+    transition: .3s ease;
+    color: #35bd00;
+    padding: 10px 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .in-cart {
+    color: #35bd00;
+    padding: 10px 15px;
   }
 }
 

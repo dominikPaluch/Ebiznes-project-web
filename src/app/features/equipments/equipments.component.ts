@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {EquipmentsService} from './equipments.service';
 import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {Equipment} from '../../models/equipment';
@@ -10,17 +10,20 @@ import {UpdateEquipmentModalComponent} from './components/update-equipment-modal
 @Component({
     selector: 'app-equipments',
     templateUrl: './equipments.component.html',
-    styleUrls: ['./equipments.component.scss']
+    styleUrls: ['./equipments.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EquipmentsComponent implements OnInit {
 
     equipments: Equipment[];
     displayedColumns: string[] = ['name', 'price', 'status', 'action'];
     dataSource;
+    cartWithEquipmentIds: string[] = [];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private equipmentService: EquipmentsService,
+                private cd: ChangeDetectorRef,
                 public dialog: MatDialog,
                 private auth: AuthService) {
     }
@@ -58,6 +61,23 @@ export class EquipmentsComponent implements OnInit {
         });
     }
 
+    addToCart(id: string) {
+        this.cartWithEquipmentIds.push(id);
+        this.equipments.filter(eq => eq._id !== id);
+    }
+
+    revert(id: string) {
+        this.cartWithEquipmentIds = this.cartWithEquipmentIds.filter(eqId => eqId !== id);
+    }
+
+    isInCart(id: string): boolean {
+        return this.cartWithEquipmentIds.includes(id);
+    }
+
+    getCartLength(): number {
+        return this.cartWithEquipmentIds.length;
+    }
+
     private createEquipment(result) {
         this.equipmentService.createEquipment({
             name: result.value.name,
@@ -85,8 +105,7 @@ export class EquipmentsComponent implements OnInit {
             price: result.value.price,
             status: result.value.status,
             _id: result.value._id
-        })
-            .subscribe(() => this.getEquipments());
+        }).subscribe(() => this.getEquipments());
     }
 
     isAdmin(): boolean {
