@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {EquipmentsService} from './equipments.service';
 import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {Equipment} from '../../models/equipment';
@@ -6,27 +6,31 @@ import {AuthService} from '../../auth/auth.service';
 import {CreateEquipmentModalComponent} from './components/create-equipment-modal/create-equipment-modal.component';
 import {UpdateEquipmentModalComponent} from './components/update-equipment-modal/update-equipment-modal.component';
 import {SetDateModalComponent} from './components/set-date-modal/set-date-modal.component';
+import {CompleteReservationModalComponent} from './components/complete-reservation-modal/complete-reservation-modal.component';
+import {FormBuilder} from '@angular/forms';
+import {HOURS} from './hours';
 
 
 @Component({
     selector: 'app-equipments',
     templateUrl: './equipments.component.html',
     styleUrls: ['./equipments.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EquipmentsComponent implements OnInit {
 
     equipments: Equipment[];
     displayedColumns: string[] = ['name', 'price', 'status', 'action'];
     dataSource;
-    cartWithEquipmentIds: string[] = [];
+    cartWithEquipments: Equipment[] = [];
     selectedDate: Date;
+    hours = HOURS;
+    selectedHourOfReservation = 1;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private equipmentService: EquipmentsService,
-                private cd: ChangeDetectorRef,
                 public dialog: MatDialog,
+                private fb: FormBuilder,
                 private auth: AuthService) {
     }
 
@@ -37,7 +41,7 @@ export class EquipmentsComponent implements OnInit {
     openDialogToAddNewEquipment(): void {
         const dialogRef = this.dialog.open(CreateEquipmentModalComponent, {
             width: '250px',
-            disableClose: true
+            hasBackdrop: true
         });
 
         dialogRef.afterClosed().pipe(
@@ -51,15 +55,14 @@ export class EquipmentsComponent implements OnInit {
     openDialogToSetDate(): void {
         const dialogRef = this.dialog.open(SetDateModalComponent, {
             width: '350px',
-            disableClose: true
+            hasBackdrop: true
         });
 
         dialogRef.afterClosed().pipe(
         ).subscribe(date => {
             if (!!date) {
                 this.selectedDate = date;
-                console.log(this.selectedDate);
-                // get equipments which is free in this date
+                // todo get equipments which is free in this date
             }
         });
     }
@@ -68,7 +71,7 @@ export class EquipmentsComponent implements OnInit {
         const dialogRef = this.dialog.open(UpdateEquipmentModalComponent, {
             width: '250px',
             data: equipment,
-            disableClose: true
+            hasBackdrop: true
         });
 
         dialogRef.afterClosed().subscribe(updatedEquipment => {
@@ -78,21 +81,48 @@ export class EquipmentsComponent implements OnInit {
         });
     }
 
-    addToCart(id: string) {
-        this.cartWithEquipmentIds.push(id);
-        this.equipments.filter(eq => eq._id !== id);
+    openDialogToCompleteReservation(): void {
+        const dialogRef = this.dialog.open(CompleteReservationModalComponent, {
+            width: '450px',
+            data: {
+                date: this.selectedDate,
+                cart: this.cartWithEquipments,
+                selectedHourOfReservation: this.selectedHourOfReservation
+            },
+            hasBackdrop: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (!!result) {
+                console.log(result);
+                this.reserve();
+            }
+        });
+    }
+
+    selectHour(v: number) {
+        this.selectedHourOfReservation = v;
+    }
+
+    reserve() {
+        this.cartWithEquipments = [];
+    }
+
+    addToCart(eq: Equipment) {
+        this.cartWithEquipments.push(eq);
+        this.equipments.filter(equipment => equipment._id !== eq._id);
     }
 
     revert(id: string) {
-        this.cartWithEquipmentIds = this.cartWithEquipmentIds.filter(eqId => eqId !== id);
+        this.cartWithEquipments = this.cartWithEquipments.filter(eq => eq._id !== id);
     }
 
     isInCart(id: string): boolean {
-        return this.cartWithEquipmentIds.includes(id);
+        return !!this.cartWithEquipments.filter(equipment => equipment._id === id).length;
     }
 
     getCartLength(): number {
-        return this.cartWithEquipmentIds.length;
+        return this.cartWithEquipments.length;
     }
 
     private createEquipment(result) {
@@ -129,6 +159,7 @@ export class EquipmentsComponent implements OnInit {
         return this.auth.isAdmin();
     }
 }
+
 
 
 

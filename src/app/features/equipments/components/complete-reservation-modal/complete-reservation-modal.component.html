@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Zatwierdź rezerwacje</h1>
+<div mat-dialog-content>
+    <form [formGroup]="reservationForm" novalidate>
+        <mat-form-field class="example-full-width">
+            <input [attr.disabled]="disabled?'':null" formControlName="date" matInput type="text"
+                   placeholder="Początek rezerwacji" (click)="disabled=false" (mouseout)="disabled=true">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input [attr.disabled]="disabled?'':null" formControlName="selectedTime" matInput type="text"
+                   placeholder="Czas trwania w godzinach" (click)="disabled=false" (mouseout)="disabled=true">
+        </mat-form-field>
+        <div class="equipments" *ngFor="let equipment of data.cart">
+            {{equipment.name}} <span class="dash"> - {{equipment.price}} zł za 1 godzinę</span>
+        </div>
+        <div class="sum">
+            Razem do zapłaty: <span>{{getSum()}} złotych</span>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Anuluj</button>
+    <button mat-button color="primary" type="submit" [mat-dialog-close]="reservationForm.value" cdkFocusInitial>
+        Zarezerwuj i zapłać
+    </button>
+</div>
