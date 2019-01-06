@@ -55,6 +55,15 @@ export class EquipmentsService {
             );
     }
 
+    public updateEquipment(equipment: Equipment): Observable<Equipment> {
+        console.log(equipment);
+        return this.http.put<Equipment>(`/api/equipments/${equipment._id}`, equipment, this._authHeader())
+            .pipe(
+                tap(console.log),
+                catchError(this.handleError)
+            );
+    }
+
     public deleteEquipment(id: string): Observable<{}> {
         return this.http.delete(`/api/equipments/${id}`, this._authHeader())
             .pipe(

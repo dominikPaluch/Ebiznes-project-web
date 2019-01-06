@@ -4,6 +4,7 @@ import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {Equipment} from '../../models/equipment';
 import {AuthService} from '../../auth/auth.service';
 import {CreateEquipmentModalComponent} from './components/create-equipment-modal/create-equipment-modal.component';
+import {UpdateEquipmentModalComponent} from './components/update-equipment-modal/update-equipment-modal.component';
 
 
 export interface DialogData {
@@ -23,7 +24,7 @@ export class EquipmentsComponent implements OnInit {
     displayedColumns: string[] = ['name', 'price', 'status', 'action'];
     dataSource;
 
-    @ViewChild(MatPaginator) paginator2: MatPaginator;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private equipmentService: EquipmentsService,
                 public dialog: MatDialog,
@@ -34,7 +35,7 @@ export class EquipmentsComponent implements OnInit {
         this.getEquipments();
     }
 
-    openDialog(): void {
+    openDialogToAddNewEquipment(): void {
         const dialogRef = this.dialog.open(CreateEquipmentModalComponent, {
             width: '250px',
             data: {},
@@ -44,12 +45,27 @@ export class EquipmentsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log(result);
             if (!!result) {
-                this.createEquipmenet(result);
+                this.createEquipment(result);
             }
         });
     }
 
-    private createEquipmenet(result) {
+    openDialogToEditEquipment(equipment: Equipment): void {
+        const dialogRef = this.dialog.open(UpdateEquipmentModalComponent, {
+            width: '250px',
+            data: equipment,
+            disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(updatedEquipment => {
+            console.log(updatedEquipment);
+            if (!!updatedEquipment) {
+                this.updateEquipment(updatedEquipment);
+            }
+        });
+    }
+
+    private createEquipment(result) {
         this.equipmentService.postEquipment({
             name: result.value.name,
             price: result.value.price,
@@ -62,7 +78,7 @@ export class EquipmentsComponent implements OnInit {
             this.equipments = results;
             console.log(results);
             this.dataSource = new MatTableDataSource<Equipment>(this.equipments);
-            this.dataSource.paginator = this.paginator2;
+            this.dataSource.paginator = this.paginator;
         });
     }
 
@@ -75,8 +91,8 @@ export class EquipmentsComponent implements OnInit {
             });
     }
 
-    editEquipment(id: string) {
-
+    updateEquipment(equipment: Equipment) {
+        this.equipmentService.updateEquipment(equipment);
     }
 
     isAdmin(): boolean {
