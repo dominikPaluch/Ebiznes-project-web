@@ -21,6 +21,7 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MyAccountModule} from './features/my-account/my-account.module';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         FormsModule,
         MatFormFieldModule,
         MatDialogModule,
-        MatInputModule
+        MatInputModule,
+        MyAccountModule
 
     ],
     providers: [

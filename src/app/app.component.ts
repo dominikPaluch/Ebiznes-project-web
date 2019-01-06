@@ -36,4 +36,8 @@ export class AppComponent {
     login() {
         this.authService.login();
     }
+
+    isAdmin(): Boolean {
+        return this.authService.isAdmin();
+    }
 }
