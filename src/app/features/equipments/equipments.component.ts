@@ -10,6 +10,7 @@ import {CompleteReservationModalComponent} from './components/complete-reservati
 import {FormBuilder} from '@angular/forms';
 import {HOURS} from './hours';
 import {Reservation} from '../../models/reservation';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class EquipmentsComponent implements OnInit {
     constructor(private equipmentService: EquipmentsService,
                 public dialog: MatDialog,
                 private fb: FormBuilder,
+                private router: Router,
                 private auth: AuthService) {
     }
 
@@ -113,13 +115,13 @@ export class EquipmentsComponent implements OnInit {
             stop: new Date(endDate),
             totalPrice: result.sum,
             status: 'created',
-            equipmentsIds: result.cart.map(cart => cart._id)
+            equipments: result.cart
         };
 
         this.equipmentService.createReservation(reservation).subscribe(() => {
             this.cartWithEquipments = [];
             this.selectedDate = null;
-            console.log('reservation completed');
+            this.router.navigate(['payment']);
         });
 
     }

@@ -3,18 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {EquipmentsComponent} from './features/equipments/equipments.component';
 import {UsersComponent} from './features/users/users.component';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './components/login/login.component';
 import {MyAccountComponent} from './features/my-account/my-account.component';
 import {ReservationsComponent} from './features/reservations/reservations.component';
+import {PaymentsComponent} from './components/payments/payments.component';
 
 const routes: Routes = [
     {
         path: '*',
         component: AppComponent
-    },
-    {
-        component: LoginComponent,
-        path: 'login'
     },
     {
         component: EquipmentsComponent,
@@ -31,6 +27,10 @@ const routes: Routes = [
     {
         component: ReservationsComponent,
         path: 'reservations'
+    },
+    {
+        component: PaymentsComponent,
+        path: 'payment'
     }
 ];
 

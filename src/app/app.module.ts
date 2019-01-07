@@ -7,7 +7,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UsersModule} from './features/users/users.module';
 import {EquipmentsModule} from './features/equipments/equipments.module';
-import {LoginComponent} from './components/login/login.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {
     MAT_DIALOG_DEFAULT_OPTIONS,
@@ -23,11 +22,12 @@ import {
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyAccountModule} from './features/my-account/my-account.module';
 import {ReservationsModule} from './features/reservations/reservations.module';
+import { PaymentsComponent } from './components/payments/payments.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
+        PaymentsComponent,
     ],
     imports: [
         BrowserModule,

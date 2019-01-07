@@ -43,10 +43,9 @@ export class ReservationsService {
         return this.http.get<Reservation[]>(`${this.API_URL}/reservations`);
     }
 
-    public createReservation(reservation: Reservation): Observable<Reservation> {
-        return this.http.post<Reservation>(`/api/reservations`, reservation, this._authHeader())
+    public deleteReservation(id: string): Observable<{}> {
+        return this.http.delete(`/api/reservations/${id}`, this._authHeader())
             .pipe(
-                tap(console.log),
                 catchError(this.handleError)
             );
     }

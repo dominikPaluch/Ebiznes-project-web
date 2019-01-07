@@ -1,3 +1,9 @@
-<p>
-  reservations works!
-</p>
+<mat-list role="list" class="list">
+    <mat-list-item class="item" *ngFor="let reservation of reservations" role="listitem">
+        <span>Rezerwacja dla: <b>{{reservation.userMail}}</b></span>
+        <span class="start">Początek: <b>{{reservation.start | date: 'dd/MM/yyyy hh:mm'}}</b></span>
+        <div class="details">
+            <span class="remove" (click)="remove(reservation._id)">Usuń</span>
+        </div>
+    </mat-list-item>
+</mat-list>

@@ -1,0 +1,34 @@
+.list {
+  max-width: 1200px;
+  margin: auto;
+
+  .item {
+    box-shadow: -1px 1px 6px #d2d2d2;
+    margin: 10px 0;
+    border-radius: 3px;
+    position: relative;
+
+    .mat-list-item-content {
+      width: 100%;
+    }
+
+    .start {
+      margin-left: 30px;
+    }
+
+    .details {
+      position: absolute;
+      right: 15px;
+
+      .remove {
+        cursor: pointer;
+        color: #ff4d4a;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+      }
+    }
+  }
+}

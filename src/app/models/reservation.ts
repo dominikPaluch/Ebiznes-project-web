@@ -1,3 +1,5 @@
+import {Equipment} from './equipment';
+
 export interface Reservation {
     _id?: string;
     userMail: string;
@@ -5,5 +7,5 @@ export interface Reservation {
     start: Date;
     stop: Date;
     status: string;
-    equipmentsIds: string[];
+    equipments: Equipment[];
 }

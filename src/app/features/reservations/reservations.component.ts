@@ -12,6 +12,7 @@ export class ReservationsComponent implements OnInit {
 
     reservations: Reservation[];
 
+
     constructor(private auth: AuthService,
                 private reservationsService: ReservationsService) {
     }
@@ -23,7 +24,12 @@ export class ReservationsComponent implements OnInit {
     private getReservations() {
         return this.reservationsService.getReservations().subscribe(res => {
             this.reservations = res;
-            console.log(res);
+        });
+    }
+
+    remove(reservationId: string) {
+        this.reservationsService.deleteReservation(reservationId).subscribe(() => {
+            this.getReservations();
         });
     }
 
