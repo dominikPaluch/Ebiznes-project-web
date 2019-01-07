@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ReservationsComponent} from './reservations.component';
 import {ReservationsService} from './reservations.service';
 import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -10,7 +11,8 @@ import {MatListModule} from '@angular/material/list';
     ],
     imports: [
         CommonModule,
-        MatListModule
+        MatListModule,
+        MatButtonModule
     ],
     providers: [ReservationsService]
 })

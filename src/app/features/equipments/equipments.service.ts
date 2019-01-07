@@ -59,7 +59,6 @@ export class EquipmentsService {
             );
     }
 
-
     public updateEquipment(equipment: Equipment): Observable<Equipment> {
         return this.http.put<Equipment>(`/api/equipments/${equipment._id}`, equipment, this._authHeader())
             .pipe(

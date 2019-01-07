@@ -24,7 +24,8 @@ export class CreateEquipmentModalComponent {
     private createForm() {
         this.createEquipmentForm = this.fb.group({
             name: ['', [Validators.required]],
-            price: ['', [Validators.required]]
+            price: ['', [Validators.required]],
+            serialNumber: ['', [Validators.required]],
         });
     }
 }

@@ -1,9 +1,28 @@
 <mat-list role="list" class="list">
     <mat-list-item class="item" *ngFor="let reservation of reservations" role="listitem">
-        <span>Rezerwacja dla: <b>{{reservation.userMail}}</b></span>
-        <span class="start">Początek: <b>{{reservation.start | date: 'dd/MM/yyyy hh:mm'}}</b></span>
+        <span>Dla: <b>{{reservation.userMail}}</b></span>
+        <span class="start">Od: <b>{{reservation.start | date: 'dd/MM/yyyy hh:mm'}}</b></span>
+        <span class="stop">Do: <b>{{reservation.stop | date: 'hh:mm'}}</b></span>
+        <span class="status"> <b>{{reservation.status}}</b></span>
+        <span class="status">
+            <span class="serialNumber" *ngFor="let serialNumber of getSerialNumbers(reservation)">
+                {{serialNumber}}
+            </span>
+        </span>
         <div class="details">
-            <span class="remove" (click)="remove(reservation._id)">Usuń</span>
+            <button *ngIf="!isStatusWydano(reservation) && !isStatusZakonczono(reservation)"
+                    (click)="setReservationToWydano(reservation)"
+                    mat-stroked-button color="primary">
+                Wydaj sprzęt
+            </button>
+            <button *ngIf="isStatusWydano(reservation)"
+                    (click)="setReservationToZakonczono(reservation)"
+                    mat-stroked-button color="primary">
+                Odbierz sprzęt
+            </button>
+            <button (click)="remove(reservation._id)" mat-stroked-button color="warn">
+                Usuń
+            </button>
         </div>
     </mat-list-item>
 </mat-list>

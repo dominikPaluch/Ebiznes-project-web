@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Reservation} from '../../models/reservation';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {AuthService} from '../../auth/auth.service';
@@ -45,6 +45,13 @@ export class ReservationsService {
 
     public deleteReservation(id: string): Observable<{}> {
         return this.http.delete(`/api/reservations/${id}`, this._authHeader())
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    public updateReservation(reservation: Reservation): Observable<Reservation> {
+        return this.http.put<Reservation>(`/api/reservations/${reservation._id}`, reservation, this._authHeader())
             .pipe(
                 catchError(this.handleError)
             );

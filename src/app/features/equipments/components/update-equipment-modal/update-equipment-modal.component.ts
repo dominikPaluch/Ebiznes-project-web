@@ -27,7 +27,8 @@ export class UpdateEquipmentModalComponent {
             _id: [this.data._id],
             name: [this.data.name, [Validators.required]],
             price: [this.data.price, [Validators.required]],
-            status: [this.data.status, [Validators.required]]
+            status: [this.data.status, [Validators.required]],
+            serialNumber: [this.data.serialNumber, [Validators.required]]
         });
     }
 

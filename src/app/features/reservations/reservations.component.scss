@@ -12,13 +12,24 @@
       width: 100%;
     }
 
+    .status,
+    .stop,
     .start {
       margin-left: 30px;
+    }
+
+    .serialNumber {
+      color: grey;
+      font-size: 14px;
     }
 
     .details {
       position: absolute;
       right: 15px;
+
+      button {
+        margin-left: 15px;
+      }
 
       .remove {
         cursor: pointer;

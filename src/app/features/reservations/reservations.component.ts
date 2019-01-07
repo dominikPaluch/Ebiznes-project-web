@@ -33,4 +33,38 @@ export class ReservationsComponent implements OnInit {
         });
     }
 
+    setReservationToWydano(reservation: Reservation) {
+        this.reservationsService.updateReservation({
+            ...reservation,
+            status: 'wydano'
+        }).subscribe(() => {
+            this.getReservations();
+        });
+    }
+
+    setReservationToZakonczono(reservation: Reservation) {
+        this.reservationsService.updateReservation({
+            ...reservation,
+            status: 'zakończono'
+        }).subscribe(() => {
+            this.getReservations();
+        });
+    }
+
+    isStatusWydano(reservation: Reservation) {
+        if (!!reservation) {
+            return reservation.status === 'wydano';
+        }
+    }
+
+    isStatusZakonczono(reservation: Reservation) {
+        if (!!reservation) {
+            return reservation.status === 'zakończono';
+        }
+    }
+
+    getSerialNumbers(reservation: Reservation) {
+        return reservation.equipments.map(equipment => equipment.serialNumber);
+    }
+
 }

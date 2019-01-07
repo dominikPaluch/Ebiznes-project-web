@@ -114,7 +114,7 @@ export class EquipmentsComponent implements OnInit {
             userMail: localStorage.getItem('userName'),
             stop: new Date(endDate),
             totalPrice: result.sum,
-            status: 'created',
+            status: 'do realizacji',
             equipments: result.cart
         };
 
@@ -147,7 +147,8 @@ export class EquipmentsComponent implements OnInit {
         this.equipmentService.createEquipment({
             name: result.value.name,
             price: result.value.price,
-            status: 'ok'
+            status: 'ok',
+            serialNumber: result.value.serialNumber
         }).subscribe(() => this.getEquipments());
     }
 
@@ -169,6 +170,7 @@ export class EquipmentsComponent implements OnInit {
             name: result.value.name,
             price: result.value.price,
             status: result.value.status,
+            serialNumber: result.value.serialNumber,
             _id: result.value._id
         }).subscribe(() => this.getEquipments());
     }
