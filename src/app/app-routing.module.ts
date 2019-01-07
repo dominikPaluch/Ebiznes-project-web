@@ -5,6 +5,7 @@ import {UsersComponent} from './features/users/users.component';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {MyAccountComponent} from './features/my-account/my-account.component';
+import {ReservationsComponent} from './features/reservations/reservations.component';
 
 const routes: Routes = [
     {
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
         component: MyAccountComponent,
         path: 'my'
+    },
+    {
+        component: ReservationsComponent,
+        path: 'reservations'
     }
 ];
 

@@ -22,6 +22,7 @@ import {
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyAccountModule} from './features/my-account/my-account.module';
+import {ReservationsModule} from './features/reservations/reservations.module';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import {MyAccountModule} from './features/my-account/my-account.module';
         HttpClientModule,
         UsersModule,
         EquipmentsModule,
+        ReservationsModule,
         LayoutModule,
         MatToolbarModule,
         MatButtonModule,

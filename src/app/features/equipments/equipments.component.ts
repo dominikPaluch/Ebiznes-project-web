@@ -60,9 +60,10 @@ export class EquipmentsComponent implements OnInit {
         });
 
         dialogRef.afterClosed().pipe(
-        ).subscribe(date => {
+        ).subscribe((date: Date) => {
             if (!!date) {
                 this.selectedDate = date;
+
                 // todo get equipments which is free in this date
             }
         });
@@ -95,7 +96,6 @@ export class EquipmentsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (!!result) {
-                console.log(result);
                 this.reserve(result);
             }
         });
@@ -106,7 +106,7 @@ export class EquipmentsComponent implements OnInit {
     }
 
     reserve(result) {
-        const endDate = new Date().setHours(result.date);
+        const endDate = new Date(result.date).setHours(new Date(result.date).getHours() + result.selectedTime);
         const reservation: Reservation = {
             start: result.date,
             userMail: localStorage.getItem('userName'),
@@ -118,6 +118,7 @@ export class EquipmentsComponent implements OnInit {
 
         this.equipmentService.createReservation(reservation).subscribe(() => {
             this.cartWithEquipments = [];
+            this.selectedDate = null;
             console.log('reservation completed');
         });
 
