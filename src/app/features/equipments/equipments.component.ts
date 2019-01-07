@@ -139,6 +139,13 @@ export class EquipmentsComponent implements OnInit {
         return !!this.cartWithEquipments.filter(equipment => equipment._id === id).length;
     }
 
+    repair(equip: Equipment) {
+        this.equipmentService.updateEquipment({
+            ...equip,
+            status: 'ok'
+        }).subscribe(() => this.getEquipments());
+    }
+
     getCartLength(): number {
         return this.cartWithEquipments.length;
     }
@@ -154,10 +161,15 @@ export class EquipmentsComponent implements OnInit {
 
     private getEquipments() {
         this.equipmentService.getEquipments().subscribe(results => {
-            this.equipments = results;
+            this.equipments = results.filter(equip =>
+                this.isAdmin() ? equip : equip.status !== 'zepsuty' && equip.status !== 'zepsuta');
             this.dataSource = new MatTableDataSource<Equipment>(this.equipments);
             this.dataSource.paginator = this.paginator;
         });
+    }
+
+    isZepsuty(equip: Equipment) {
+        return equip.status === 'zepsuty' || equip.status === 'zepsuta';
     }
 
     removeEquipment(id: string) {

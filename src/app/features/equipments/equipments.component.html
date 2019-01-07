@@ -49,7 +49,10 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <div class="actions-containers">
-                    <span *ngIf="!isInCart(element._id) && isLoggedOn()" class="add-to-cart" (click)="addToCart(element)">Dodaj do koszyka</span>
+                    <span *ngIf="!isInCart(element._id) && !isZepsuty(element) && isLoggedOn()" class="add-to-cart"
+                          (click)="addToCart(element)">Dodaj do koszyka</span>
+                    <span *ngIf="!isInCart(element._id) && isZepsuty(element) && isLoggedOn()"
+                          class="add-to-cart" (click)="repair(element)">Napraw</span>
                     <span *ngIf="isInCart(element._id)" class="in-cart">Dodano</span>
                     <span *ngIf="isInCart(element._id)" (click)="revert(element._id)" class="remove">Cofnij</span>
                     <span class="edit" *ngIf="isAdmin() && !isInCart(element._id)"

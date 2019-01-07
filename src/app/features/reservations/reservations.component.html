@@ -1,6 +1,6 @@
 <mat-list role="list" class="list">
     <mat-list-item class="item" *ngFor="let reservation of reservations" role="listitem">
-        <span>Dla: <b>{{reservation.userMail}}</b></span>
+        <span class="name">Dla: <b>{{reservation.userMail}}</b></span>
         <span class="start">Od: <b>{{reservation.start | date: 'dd/MM/yyyy hh:mm'}}</b></span>
         <span class="stop">Do: <b>{{reservation.stop | date: 'hh:mm'}}</b></span>
         <span class="status"> <b>{{reservation.status}}</b></span>
