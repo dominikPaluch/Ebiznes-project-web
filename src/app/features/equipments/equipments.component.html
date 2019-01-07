@@ -1,4 +1,4 @@
-<button mat-stroked-button color="accent" (click)="openDialogToSetDate()">
+<button *ngIf="isLoggedOn()" mat-stroked-button color="accent" (click)="openDialogToSetDate()">
     Wybierz datę
 </button>
 <span *ngIf="!!selectedDate">
@@ -49,7 +49,7 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <div class="actions-containers">
-                    <span *ngIf="!isInCart(element._id)" class="add-to-cart" (click)="addToCart(element)">Dodaj do koszyka</span>
+                    <span *ngIf="!isInCart(element._id) && isLoggedOn()" class="add-to-cart" (click)="addToCart(element)">Dodaj do koszyka</span>
                     <span *ngIf="isInCart(element._id)" class="in-cart">Dodano</span>
                     <span *ngIf="isInCart(element._id)" (click)="revert(element._id)" class="remove">Cofnij</span>
                     <span class="edit" *ngIf="isAdmin() && !isInCart(element._id)"

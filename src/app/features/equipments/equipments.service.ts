@@ -5,6 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import {Equipment} from '../../models/equipment';
 import {environment} from '../../../environments/environment';
 import {catchError, tap} from 'rxjs/operators';
+import {Reservation} from '../../models/reservation';
 
 @Injectable({
     providedIn: 'root'
@@ -49,6 +50,15 @@ export class EquipmentsService {
                 catchError(this.handleError)
             );
     }
+
+    public createReservation(reservation: Reservation): Observable<Reservation> {
+        return this.http.post<Reservation>(`/api/reservations`, reservation, this._authHeader())
+            .pipe(
+                tap(console.log),
+                catchError(this.handleError)
+            );
+    }
+
 
     public updateEquipment(equipment: Equipment): Observable<Equipment> {
         return this.http.put<Equipment>(`/api/equipments/${equipment._id}`, equipment, this._authHeader())

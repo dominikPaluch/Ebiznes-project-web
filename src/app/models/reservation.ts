@@ -1,8 +1,9 @@
 export interface Reservation {
-    readonly _id: number;
-    readonly userId: number;
-    readonly totalPrive: number;
-    readonly start: Date;
-    readonly stop: Date;
-    readonly status: string;
+    _id?: string;
+    userMail: string;
+    totalPrice: number;
+    start: Date;
+    stop: Date;
+    status: string;
+    equipmentsIds: string[];
 }

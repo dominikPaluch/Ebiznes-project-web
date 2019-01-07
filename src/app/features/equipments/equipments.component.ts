@@ -9,6 +9,7 @@ import {SetDateModalComponent} from './components/set-date-modal/set-date-modal.
 import {CompleteReservationModalComponent} from './components/complete-reservation-modal/complete-reservation-modal.component';
 import {FormBuilder} from '@angular/forms';
 import {HOURS} from './hours';
+import {Reservation} from '../../models/reservation';
 
 
 @Component({
@@ -95,7 +96,7 @@ export class EquipmentsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (!!result) {
                 console.log(result);
-                this.reserve();
+                this.reserve(result);
             }
         });
     }
@@ -104,8 +105,22 @@ export class EquipmentsComponent implements OnInit {
         this.selectedHourOfReservation = v;
     }
 
-    reserve() {
-        this.cartWithEquipments = [];
+    reserve(result) {
+        const endDate = new Date().setHours(result.date);
+        const reservation: Reservation = {
+            start: result.date,
+            userMail: localStorage.getItem('userName'),
+            stop: new Date(endDate),
+            totalPrice: result.sum,
+            status: 'created',
+            equipmentsIds: result.cart.map(cart => cart._id)
+        };
+
+        this.equipmentService.createReservation(reservation).subscribe(() => {
+            this.cartWithEquipments = [];
+            console.log('reservation completed');
+        });
+
     }
 
     addToCart(eq: Equipment) {
@@ -157,6 +172,10 @@ export class EquipmentsComponent implements OnInit {
 
     isAdmin(): boolean {
         return this.auth.isAdmin();
+    }
+
+    isLoggedOn(): boolean {
+        return this.auth.isLoggedOn();
     }
 }
 
