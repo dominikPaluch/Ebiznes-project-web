@@ -10,7 +10,7 @@
             </span>
         </span>
         <div class="details">
-            <button *ngIf="!isStatusWydano(reservation) && !isStatusZakonczono(reservation)"
+            <button *ngIf="!isStatusWydano(reservation) && !isStatusZakonczono(reservation) && !isStatusAnulowano(reservation)"
                     (click)="setReservationToWydano(reservation)"
                     mat-stroked-button color="primary">
                 Wydaj sprzęt

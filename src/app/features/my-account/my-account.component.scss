@@ -1,0 +1,55 @@
+.list {
+  max-width: 1200px;
+  margin: auto;
+
+  .item {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    margin: 10px 0;
+    border-radius: 3px;
+    position: relative;
+    height: 70px;
+
+    &:hover {
+      background: #eeeeee;
+      transition: .3s ease;
+    }
+
+    .mat-list-item-content {
+      width: 100%;
+    }
+
+    .status,
+    .stop,
+    .start {
+      margin-left: 30px;
+    }
+
+    .status {
+      width: 100px;
+    }
+
+    .serialNumber {
+      color: grey;
+      font-size: 14px;
+    }
+
+    .details {
+      position: absolute;
+      right: 15px;
+
+      button {
+        margin-left: 15px;
+      }
+
+      .remove {
+        cursor: pointer;
+        color: #ff4d4a;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+      }
+    }
+  }
+}

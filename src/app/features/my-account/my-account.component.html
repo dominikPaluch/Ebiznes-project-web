@@ -1,1 +1,22 @@
 <mat-card>Zostałeś zalogowany z konta: <b>{{getUsername()}}</b></mat-card>
+<h4>Moje rezerwacje:</h4>
+
+<mat-list role="list" class="list">
+    <mat-list-item class="item" *ngFor="let reservation of reservations" role="listitem">
+        <span class="start">Od: <b>{{reservation.start | date: 'dd/MM/yyyy hh:mm'}}</b></span>
+        <span class="stop">Do: <b>{{reservation.stop | date: 'hh:mm'}}</b></span>
+        <span class="status"> <b>{{reservation.status}}</b></span>
+        <span class="status">
+            <span class="serialNumber" *ngFor="let serialNumber of getSerialNumbers(reservation)">
+                {{serialNumber}}
+            </span>
+        </span>
+        <div class="details">
+            <button *ngIf="isDoRealizacjiStatus(reservation.status)" (click)="cancel(reservation)" mat-stroked-button
+                    color="warn">
+                Anuluj rezerwację
+            </button>
+        </div>
+    </mat-list-item>
+</mat-list>
+

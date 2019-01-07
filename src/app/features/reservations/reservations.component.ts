@@ -12,7 +12,6 @@ export class ReservationsComponent implements OnInit {
 
     reservations: Reservation[];
 
-
     constructor(private auth: AuthService,
                 private reservationsService: ReservationsService) {
     }
@@ -60,6 +59,12 @@ export class ReservationsComponent implements OnInit {
     isStatusZakonczono(reservation: Reservation) {
         if (!!reservation) {
             return reservation.status === 'zakończono';
+        }
+    }
+
+    isStatusAnulowano(reservation: Reservation) {
+        if (!!reservation) {
+            return reservation.status === 'anulowano';
         }
     }
 
