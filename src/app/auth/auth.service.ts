@@ -44,10 +44,6 @@ export class AuthService {
         return this.helper.decodeToken(localStorage.getItem('accessToken'));
     }
 
-    public getTokenExpirationDate() {
-        return this.helper.getTokenExpirationDate(localStorage.getItem('accessToken'));
-    }
-
     public checkSession(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this._auth0Client.checkSession(this._properties, async (error, authResult) => {

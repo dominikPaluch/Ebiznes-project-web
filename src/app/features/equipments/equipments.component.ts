@@ -163,6 +163,9 @@ export class EquipmentsComponent implements OnInit {
         this.equipmentService.getEquipments().subscribe(results => {
             this.equipments = results.filter(equip =>
                 this.isAdmin() ? equip : equip.status !== 'zepsuty' && equip.status !== 'zepsuta');
+
+            this.equipments.filter(equip => equip.status )
+
             this.dataSource = new MatTableDataSource<Equipment>(this.equipments);
             this.dataSource.paginator = this.paginator;
         });
