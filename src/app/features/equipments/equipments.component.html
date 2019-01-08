@@ -1,3 +1,5 @@
+<mat-card *ngIf="!isLoggedOn()">Zaloguje się w systemie, aby móc rezerwować sprzęt</mat-card>
+
 <button *ngIf="isLoggedOn()" mat-stroked-button color="accent" (click)="openDialogToSetDate()">
     Wybierz datę
 </button>
@@ -12,6 +14,9 @@
         </mat-option>
     </mat-select>
 </mat-form-field>
+<span (click)="clearDate()" class="clear" *ngIf="!!selectedDate">
+    Wyczyść datę
+</span>
 
 <div class="under-table-section">
     <span class="title">Dostępny sprzęt</span>
@@ -49,8 +54,8 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <div class="actions-containers">
-                    <span *ngIf="!isInCart(element._id) && !isZepsuty(element) && isLoggedOn()" class="add-to-cart"
-                          (click)="addToCart(element)">Dodaj do koszyka</span>
+                    <span *ngIf="!isInCart(element._id) && !isZepsuty(element) && isLoggedOn() && !!selectedDate"
+                          class="add-to-cart" (click)="addToCart(element)">Dodaj do koszyka</span>
                     <span *ngIf="!isInCart(element._id) && isZepsuty(element) && isLoggedOn()"
                           class="add-to-cart" (click)="repair(element)">Napraw</span>
                     <span *ngIf="isInCart(element._id)" class="in-cart">Dodano</span>

@@ -29,6 +29,17 @@ $primary-color: #375b84;
   margin-right: 15px;
 }
 
+.clear {
+  font-size: 12px;
+  padding: 0 15px;
+  color: #ff3f41;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 table {
   width: 100%;
 }

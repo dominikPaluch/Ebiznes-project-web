@@ -11,6 +11,7 @@ import {FormBuilder} from '@angular/forms';
 import {HOURS} from './hours';
 import {Reservation} from '../../models/reservation';
 import {Router} from '@angular/router';
+import {ReservationsService} from '../reservations/reservations.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ import {Router} from '@angular/router';
 export class EquipmentsComponent implements OnInit {
 
     equipments: Equipment[];
+    currentReservations: Reservation[];
     displayedColumns: string[] = ['name', 'price', 'status', 'action'];
     dataSource;
     cartWithEquipments: Equipment[] = [];
@@ -31,6 +33,7 @@ export class EquipmentsComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private equipmentService: EquipmentsService,
+                public reservationService: ReservationsService,
                 public dialog: MatDialog,
                 private fb: FormBuilder,
                 private router: Router,
@@ -39,6 +42,7 @@ export class EquipmentsComponent implements OnInit {
 
     ngOnInit() {
         this.getEquipments();
+        this.getReservations();
     }
 
     openDialogToAddNewEquipment(): void {
@@ -103,10 +107,6 @@ export class EquipmentsComponent implements OnInit {
         });
     }
 
-    selectHour(v: number) {
-        this.selectedHourOfReservation = v;
-    }
-
     reserve(result) {
         const endDate = new Date(result.date).setHours(new Date(result.date).getHours() + result.selectedTime);
         const reservation: Reservation = {
@@ -164,11 +164,20 @@ export class EquipmentsComponent implements OnInit {
             this.equipments = results.filter(equip =>
                 this.isAdmin() ? equip : equip.status !== 'zepsuty' && equip.status !== 'zepsuta');
 
-            this.equipments.filter(equip => equip.status )
-
             this.dataSource = new MatTableDataSource<Equipment>(this.equipments);
             this.dataSource.paginator = this.paginator;
         });
+    }
+
+    private getReservations() {
+        this.reservationService.getReservations().subscribe(results => {
+            this.currentReservations = results.filter(reservation => reservation.status === 'wydano'
+                || reservation.status === 'do realizacji');
+        });
+    }
+
+    selectHour(v: number) {
+        this.selectedHourOfReservation = v;
     }
 
     isZepsuty(equip: Equipment) {
@@ -188,6 +197,11 @@ export class EquipmentsComponent implements OnInit {
             serialNumber: result.value.serialNumber,
             _id: result.value._id
         }).subscribe(() => this.getEquipments());
+    }
+
+    clearDate() {
+        this.selectedDate = null;
+        this.selectedHourOfReservation = 1;
     }
 
     isAdmin(): boolean {

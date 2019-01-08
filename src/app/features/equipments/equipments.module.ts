@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {EquipmentsComponent} from './equipments.component';
 import {EquipmentsService} from './equipments.service';
 import {
-    MatButtonModule,
+    MatButtonModule, MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -39,7 +39,8 @@ import {CompleteReservationModalComponent} from './components/complete-reservati
         MatInputModule,
         MatButtonModule,
         MatOptionModule,
-        MatSelectModule
+        MatSelectModule,
+        MatCardModule
     ],
     providers: [EquipmentsService],
     entryComponents: [
