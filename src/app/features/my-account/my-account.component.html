@@ -7,8 +7,8 @@
         <span class="stop">Do: <b>{{reservation.stop | date: 'hh:mm'}}</b></span>
         <span class="status"> <b>{{reservation.status}}</b></span>
         <span class="status">
-            <span class="serialNumber" *ngFor="let serialNumber of getSerialNumbers(reservation)">
-                {{serialNumber}}
+            <span class="serialNumber" *ngFor="let name of getNames(reservation)">
+                {{name}}
             </span>
         </span>
         <div class="details">

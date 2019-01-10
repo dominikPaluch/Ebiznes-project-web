@@ -43,8 +43,8 @@ export class MyAccountComponent implements OnInit {
         return status === 'do realizacji';
     }
 
-    getSerialNumbers(reservation: Reservation) {
-        return reservation.equipments.map(equipment => equipment.serialNumber);
+    getNames(reservation: Reservation) {
+        return reservation.equipments.map(equipment => equipment.name);
     }
 
 }
