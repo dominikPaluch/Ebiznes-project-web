@@ -11,6 +11,7 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {
     MAT_DIALOG_DEFAULT_OPTIONS,
     MatButtonModule,
+    MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -22,12 +23,16 @@ import {
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyAccountModule} from './features/my-account/my-account.module';
 import {ReservationsModule} from './features/reservations/reservations.module';
-import { PaymentsComponent } from './components/payments/payments.component';
+import {PaymentsComponent} from './components/payments/payments.component';
+import {ContactComponent} from './components/contact/contact.component';
+import {AboutComponent} from './components/about/about.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         PaymentsComponent,
+        ContactComponent,
+        AboutComponent,
     ],
     imports: [
         BrowserModule,
@@ -49,7 +54,8 @@ import { PaymentsComponent } from './components/payments/payments.component';
         MatFormFieldModule,
         MatDialogModule,
         MatInputModule,
-        MyAccountModule
+        MyAccountModule,
+        MatCardModule
 
     ],
     providers: [

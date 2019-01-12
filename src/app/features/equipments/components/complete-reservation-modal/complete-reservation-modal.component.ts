@@ -2,6 +2,7 @@ import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Equipment} from '../../../../models/equipment';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-complete-reservation-modal',
@@ -14,6 +15,7 @@ export class CompleteReservationModalComponent implements OnInit {
     disabled;
 
     constructor(public dialogRef: MatDialogRef<CompleteReservationModalComponent>,
+                private router: Router,
                 private fb: FormBuilder,
                 @Optional() @Inject(MAT_DIALOG_DATA) public data) {
     }
@@ -23,6 +25,10 @@ export class CompleteReservationModalComponent implements OnInit {
     }
 
     cancel(): void {
+        this.dialogRef.close();
+    }
+
+    payLater() {
         this.dialogRef.close();
     }
 

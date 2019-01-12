@@ -9,12 +9,16 @@
             <input formControlName="price" matInput type="number" placeholder="Cena" min="0" maxlength="128">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-            <input formControlName="status" matInput type="text" placeholder="Status" min="0" maxlength="128">
+        <mat-form-field>
+            <select formControlName="status" placeholder="Status" matNativeControl required>
+                <option value="ok">Ok</option>
+                <option value="zepsuty">Zepsuty</option>
+            </select>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <input formControlName="serialNumber" matInput type="text" placeholder="Numer seryjny" min="0" maxlength="128">
+            <input formControlName="serialNumber" matInput type="text" placeholder="Numer seryjny" min="0"
+                   maxlength="128">
         </mat-form-field>
 
     </form>

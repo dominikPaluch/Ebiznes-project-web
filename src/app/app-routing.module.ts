@@ -6,6 +6,8 @@ import {AppComponent} from './app.component';
 import {MyAccountComponent} from './features/my-account/my-account.component';
 import {ReservationsComponent} from './features/reservations/reservations.component';
 import {PaymentsComponent} from './components/payments/payments.component';
+import {ContactComponent} from './components/contact/contact.component';
+import {AboutComponent} from './components/about/about.component';
 
 const routes: Routes = [
     {
@@ -31,6 +33,14 @@ const routes: Routes = [
     {
         component: PaymentsComponent,
         path: 'payment'
+    },
+    {
+        component: ContactComponent,
+        path: 'contact'
+    },
+    {
+        component: AboutComponent,
+        path: 'about'
     }
 ];
 

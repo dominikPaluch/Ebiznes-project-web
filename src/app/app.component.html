@@ -6,8 +6,10 @@
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
             <a mat-list-item routerLink="my" *ngIf="isLoggedOn()">Moje konto</a>
-            <a *ngIf="isLoggedOn()" mat-list-item routerLink="equipments">Lista sprzętów</a>
+            <a mat-list-item routerLink="equipments">Lista sprzętów</a>
             <a *ngIf="isAdmin()" mat-list-item routerLink="reservations">Lista rezerwacji</a>
+            <a mat-list-item routerLink="about">O nas</a>
+            <a mat-list-item routerLink="contact">Kontakt</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -20,7 +22,7 @@
                     *ngIf="isHandset$ | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span>Rybakówka</span>
+            <span class="logo" routerLink="equipments">Rybakówka</span>
             <div class="user-info-section">
                 <span *ngIf="isLoggedOn()">Witaj,</span>
                 <div class="username">

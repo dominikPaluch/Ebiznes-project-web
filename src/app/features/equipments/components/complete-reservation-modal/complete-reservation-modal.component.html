@@ -22,4 +22,7 @@
     <button mat-button color="primary" type="submit" [mat-dialog-close]="reservationForm.value" cdkFocusInitial>
         Zarezerwuj i zapłać
     </button>
+    <button mat-button color="primary" (click)="payLater()" [mat-dialog-close]="reservationForm.value" cdkFocusInitial>
+        Zarezerwuj i zapłać przy odbiorze
+    </button>
 </div>

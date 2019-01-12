@@ -3,7 +3,8 @@ import {CommonModule} from '@angular/common';
 import {EquipmentsComponent} from './equipments.component';
 import {EquipmentsService} from './equipments.service';
 import {
-    MatButtonModule, MatCardModule,
+    MatButtonModule,
+    MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -17,6 +18,8 @@ import {CreateEquipmentModalComponent} from './components/create-equipment-modal
 import {UpdateEquipmentModalComponent} from './components/update-equipment-modal/update-equipment-modal.component';
 import {SetDateModalComponent} from './components/set-date-modal/set-date-modal.component';
 import {CompleteReservationModalComponent} from './components/complete-reservation-modal/complete-reservation-modal.component';
+import {GalleryComponent} from './components/gallery/gallery.component';
+import {NgxGalleryModule} from 'ngx-gallery';
 
 @NgModule({
     declarations: [
@@ -24,7 +27,8 @@ import {CompleteReservationModalComponent} from './components/complete-reservati
         CreateEquipmentModalComponent,
         UpdateEquipmentModalComponent,
         SetDateModalComponent,
-        CompleteReservationModalComponent
+        CompleteReservationModalComponent,
+        GalleryComponent
     ],
     imports: [
         CommonModule,
@@ -40,7 +44,8 @@ import {CompleteReservationModalComponent} from './components/complete-reservati
         MatButtonModule,
         MatOptionModule,
         MatSelectModule,
-        MatCardModule
+        MatCardModule,
+        NgxGalleryModule
     ],
     providers: [EquipmentsService],
     entryComponents: [

@@ -91,7 +91,7 @@ export class EquipmentsComponent implements OnInit {
 
     openDialogToCompleteReservation(): void {
         const dialogRef = this.dialog.open(CompleteReservationModalComponent, {
-            width: '450px',
+            width: '650px',
             data: {
                 date: this.selectedDate,
                 cart: this.cartWithEquipments,
